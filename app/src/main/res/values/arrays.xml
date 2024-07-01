@@ -1,0 +1,57 @@
+<resources>
+    <string-array name="price_options">
+        <item>$</item>
+        <item>$$</item>
+        <item>$$$</item>
+        <item>$$$$</item>
+    </string-array>
+
+    <string-array name="cuisine_options">
+        <item>American</item>
+        <item>Italian</item>
+        <item>Chinese</item>
+        <item>Japanese</item>
+        <item>Indian</item>
+        <item>Mexican</item>
+        <item>Thai</item>
+    </string-array>
+
+    <string-array name="payment_options">
+        <item>Cash</item>
+        <item>Credit Card</item>
+        <item>Debit Card</item>
+        <item>Mobile Payment</item>
+    </string-array>
+
+    <string-array name="parking_options">
+        <item>Street</item>
+        <item>Valet</item>
+        <item>Private Lot</item>
+        <item>Public Lot</item>
+    </string-array>
+
+    <string-array name="dress_code_options">
+        <item>Casual</item>
+        <item>Business Casual</item>
+        <item>Formal</item>
+    </string-array>
+
+    <string-array name="malaysia_states">
+        <item>Johor</item>
+        <item>Kedah</item>
+        <item>Kelantan</item>
+        <item>Kuala Lumpur</item>
+        <item>Labuan</item>
+        <item>Malacca</item>
+        <item>Negeri Sembilan</item>
+        <item>Pahang</item>
+        <item>Penang</item>
+        <item>Perak</item>
+        <item>Perlis</item>
+        <item>Putrajaya</item>
+        <item>Sabah</item>
+        <item>Sarawak</item>
+        <item>Selangor</item>
+        <item>Terengganu</item>
+    </string-array>
+</resources>

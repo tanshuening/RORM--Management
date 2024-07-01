@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Reservation"
+        android:id="@+id/reservationFragment"
+        android:icon="@drawable/calendar"/>
+
+    <item android:title="Dashboard"
+        android:id="@+id/dashboardFragment"
+        android:icon="@drawable/dashboard"/>
+</menu>

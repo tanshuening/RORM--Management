@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.DashboardFragment"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:gravity="center" >
+
+    <LinearLayout
+        android:id="@+id/restaurantInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:elevation="5dp"
+            app:cardCornerRadius="50dp" >
+
+            <ImageView
+                android:id="@+id/profilePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                tools:srcCompat="@tools:sample/avatars" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/restaurantNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Name"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/firstRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@+id/menuLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/white_button">
+
+            <ImageButton
+                android:id="@+id/menuIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Menu"
+                android:src="@drawable/menu"
+                android:backgroundTint="@color/white"/>
+
+            <TextView
+                android:id="@+id/menuText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Menu"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/promotionsLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/white_button" >
+
+            <ImageButton
+                android:id="@+id/promotionsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Promotions"
+                android:src="@drawable/promotion"
+                android:backgroundTint="@color/white"/>
+
+            <TextView
+                android:id="@+id/promotionsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Promotions"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 2nd row features -->
+    <LinearLayout
+        android:id="@+id/secondRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="top"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@+id/feedbackLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/white_button">
+
+            <ImageButton
+                android:id="@+id/feedbackIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Customer Feedback"
+                android:src="@drawable/feedback"
+                android:backgroundTint="@color/white"/>
+
+            <TextView
+                android:id="@+id/feedbackText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Customer Feedback"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/informationLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/white_button" >
+
+            <ImageButton
+                android:id="@+id/informationIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Restaurant Information"
+                android:src="@drawable/information"
+                android:backgroundTint="@color/white"/>
+
+            <TextView
+                android:id="@+id/informationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Restaurant Information"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

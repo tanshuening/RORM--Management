@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="orange">#ffa500</color>
+    <color name="veryLightOrange2">#ffd589</color>
+    <color name="veryLightOrange">#9FEFCA86</color>
+    <color name="lightOrange">#ffc356</color>
+    <color name="lightOrange2">#ffd190</color>
+    <color name="vividYellow">#ffd91a</color>
+    <color name="orange_primary">#FFA500</color> <!-- Orange primary color -->
+    <color name="orange_primary_variant">#FF8C00</color> <!-- Darker variant of orange primary -->
+</resources>

@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".RestaurantProfileActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/restaurantProfileAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:minHeight="?attr/actionBarSize" >
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/back_arrow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:text="Profile"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantProfileAppBarLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/restaurantProfileAppBarLayout">
+
+            <LinearLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/white_button"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/addressText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Address" />
+
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="5"
+                    android:layout_marginStart="4dp"
+                    android:ems="10"
+                    android:textSize="14sp"
+                    android:hint="Address"
+                    android:inputType="text"
+                    android:layout_marginEnd="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_button"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                <TextView
+                    android:id="@+id/priceText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Price" />
+
+                <Spinner
+                    android:id="@+id/price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="5"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_button"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout3"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+
+                <TextView
+                    android:id="@+id/cuisineText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Cuisine" />
+
+                <com.examples.rormmanagement.MultiSelectSpinner
+                    android:id="@+id/cuisine"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="5"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    android:inputType="text"
+                    android:layout_marginEnd="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/constraintLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_button"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+                <TextView
+                    android:id="@+id/paymentText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Payment" />
+
+                <com.examples.rormmanagement.MultiSelectSpinner
+                    android:id="@+id/payment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="5"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/constraintLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_button"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+                <TextView
+                    android:id="@+id/parkingText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Parking" />
+
+                <Spinner
+                    android:id="@+id/parking"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="5"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/constraintLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/white_button"
+                android:elevation="2dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout6"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout6"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+
+                <TextView
+                    android:id="@+id/dressCodeText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Dress Code" />
+
+                <Spinner
+                    android:id="@+id/dressCode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="5"
+                    android:layout_marginStart="4dp"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/constraintLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/white_button"
+                android:elevation="2dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout7"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout7"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+                <TextView
+                    android:id="@+id/descriptionText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Description" />
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_weight="5"
+                    android:layout_marginStart="4dp"
+                    android:ems="10"
+                    android:textSize="14sp"
+                    android:hint="Description"
+                    android:inputType="text"
+                    android:layout_marginEnd="18dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout8"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout8"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
+
+                <EditText
+                    android:id="@+id/startTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_button"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="Start Time"
+                    android:paddingStart="20dp"
+                    android:textSize="16sp"  />
+
+                <EditText
+                    android:id="@+id/endTime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_button"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="End Time"
+                    android:paddingStart="20dp"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange_button"
+            android:text="Save"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

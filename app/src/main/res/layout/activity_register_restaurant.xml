@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".RegisterRestaurantActivity">
+
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/baloo_bhai_2_bold"
+        android:text="RORM"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Restaurant Registration"
+        android:textSize="24sp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/orange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/locationSpinner"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/white_button"
+        app:endIconDrawable="@drawable/down_arrow"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="20dp"
+        app:endIconTint="@color/black"
+        android:layout_marginEnd="20dp"
+        android:elevation="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" >
+
+        <AutoCompleteTextView
+            android:id="@+id/listOfLocation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/location"
+            android:drawablePadding="20dp"
+            android:fontFamily="@font/roboto"
+            android:inputType="none"
+            android:text="Choose Location" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:elevation="5dp"
+        android:background="@drawable/white_button"
+        android:drawableLeft="@drawable/phone"
+        android:drawablePadding="20dp"
+        android:fontFamily="@font/roboto"
+        android:inputType="phone"
+        android:paddingStart="20dp"
+        android:paddingEnd="40dp"
+        android:hint="Phone Number of Restaurant"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/locationSpinner" />
+
+    <EditText
+        android:id="@+id/restaurantName"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:elevation="5dp"
+        android:background="@drawable/white_button"
+        android:drawableLeft="@drawable/restaurant"
+        android:drawablePadding="20dp"
+        android:fontFamily="@font/roboto"
+        android:paddingStart="20dp"
+        android:paddingEnd="40dp"
+        android:hint="Name of Restaurant"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/nextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange_button"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

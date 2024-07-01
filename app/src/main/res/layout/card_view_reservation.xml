@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:elevation="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewMenu"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewImage"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="20dp"
+                android:elevation="5dp"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="center"
+                    tools:text="order" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/customerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Customer Name"
+                android:layout_marginTop="5dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/cardViewImage"
+                app:layout_constraintTop_toTopOf="@+id/cardViewImage" />
+
+            <TextView
+                android:id="@+id/bookingNumOfPax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="0"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardViewImage"
+                app:layout_constraintStart_toStartOf="@+id/customerName"
+                app:layout_constraintTop_toBottomOf="@+id/customerName" />
+
+            <TextView
+                android:id="@+id/pax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="pax"
+                android:textSize="12sp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/bookingNumOfPax"
+                app:layout_constraintStart_toEndOf="@+id/bookingNumOfPax"
+                app:layout_constraintTop_toTopOf="@+id/bookingNumOfPax" />
+
+            <TextView
+                android:id="@+id/symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text=","
+                android:textSize="12sp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/pax"
+                app:layout_constraintStart_toEndOf="@+id/pax"
+                app:layout_constraintTop_toTopOf="@+id/pax" />
+
+            <TextView
+                android:id="@+id/bookingDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="Date"
+                android:textSize="12sp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/symbol"
+                app:layout_constraintStart_toEndOf="@+id/symbol"
+                app:layout_constraintTop_toTopOf="@+id/symbol" />
+
+            <TextView
+                android:id="@+id/symbol2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text=","
+                android:textSize="12sp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/bookingDate"
+                app:layout_constraintStart_toEndOf="@+id/bookingDate"
+                app:layout_constraintTop_toTopOf="@+id/bookingDate" />
+
+            <TextView
+                android:id="@+id/bookingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="Time"
+                android:textSize="12sp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/symbol2"
+                app:layout_constraintStart_toEndOf="@+id/symbol2"
+                app:layout_constraintTop_toTopOf="@+id/symbol2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

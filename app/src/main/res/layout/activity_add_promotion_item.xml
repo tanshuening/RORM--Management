@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".AddPromotionItemActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/addItemAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:minHeight="?attr/actionBarSize">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/back_arrow" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:text="Add Promotion"
+                android:textColor="@color/black"
+                android:textSize="22sp" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addItemAppBarLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addItemAppBarLayout">
+
+            <EditText
+                android:id="@+id/promotionName"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/white_button"
+                android:fontFamily="@font/roboto"
+                android:hint="Enter Promotion Name"
+                android:paddingStart="20dp"
+                android:paddingEnd="40dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/promotionDiscountPercentage"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/white_button"
+                android:ems="10"
+                android:fontFamily="@font/roboto"
+                android:hint="Enter Discount Percentage"
+                android:inputType="number"
+                android:paddingStart="20dp"
+                android:paddingEnd="40dp"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/promotionName" />
+
+            <TextView
+                android:id="@+id/selectImage"
+                android:layout_width="0dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/white_button"
+                android:drawableRight="@drawable/add_circle"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="Select Image"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/promotionDiscountPercentage" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:cardCornerRadius="16dp"
+                app:layout_constraintEnd_toEndOf="@+id/selectImage"
+                app:layout_constraintStart_toStartOf="@+id/selectImage"
+                app:layout_constraintTop_toBottomOf="@+id/selectImage">
+
+                <ImageView
+                    android:id="@+id/selectedImage"
+                    android:layout_width="175dp"
+                    android:layout_height="110dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/add_image" />
+            </androidx.cardview.widget.CardView>
+
+            <EditText
+                android:id="@+id/promotionDescription"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/white_button"
+                android:fontFamily="@font/roboto"
+                android:hint="Enter Promotion Description"
+                android:paddingStart="20dp"
+                android:paddingEnd="40dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewImage" />
+
+            <EditText
+                android:id="@+id/promotionTnc"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/white_button"
+                android:fontFamily="@font/roboto"
+                android:hint="Enter Promotioon Terms and Conditions"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:paddingStart="20dp"
+                android:paddingEnd="40dp"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/promotionDescription" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/promotionTnc"
+                app:layout_constraintStart_toStartOf="@+id/promotionTnc"
+                app:layout_constraintTop_toBottomOf="@id/promotionTnc">
+
+                <EditText
+                    android:id="@+id/startDate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_button"
+                    android:clickable="true"
+                    android:paddingStart="20dp"
+                    android:focusable="false"
+                    android:hint="Start Date"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toStartOf="@+id/endDate"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/promotionTnc" />
+
+                <EditText
+                    android:id="@+id/endDate"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_button"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="End Date"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/startDate"
+                    app:layout_constraintTop_toBottomOf="@id/promotionTnc" />
+
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/orange_button"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Add"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
