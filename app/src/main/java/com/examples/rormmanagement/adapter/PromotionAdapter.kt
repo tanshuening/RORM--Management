@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 class PromotionAdapter(
     private val context: Context,
     private val promotionList: ArrayList<Promotion>,
-    private val itemClickLauncher: ActivityResultLauncher<Intent>
+    private val listener: OnItemClickListener
 ) : RecyclerView.Adapter<PromotionAdapter.PromotionViewHolder>() {
 
     var showCheckboxes: Boolean = false
@@ -59,18 +59,7 @@ class PromotionAdapter(
                 }
 
                 root.setOnClickListener {
-                    val intent = Intent(context, PromotionInfoActivity::class.java).apply {
-                        putExtra("promotionItemId", promotionItem.promotionId)
-                        putExtra("name", promotionItem.name)
-                        putExtra("description", promotionItem.description)
-                        putExtra("termsAndConditions", promotionItem.termsAndConditions)
-                        putExtra("discount", promotionItem.discount)
-                        putExtra("startDate", promotionItem.startDate)
-                        putExtra("endDate", promotionItem.endDate)
-                        putExtra("image", promotionItem.image)
-                        putExtra("isAvailable", promotionItem.available)
-                    }
-                    itemClickLauncher.launch(intent)
+                    listener.onItemClick(promotionItem)
                 }
             }
         }
@@ -115,5 +104,9 @@ class PromotionAdapter(
 
     fun getSelectedItems(): List<Promotion> {
         return selectedItems.toList()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(promotion: Promotion)
     }
 }

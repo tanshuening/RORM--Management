@@ -12,8 +12,8 @@ data class Restaurant(
     val parking: String? = null,
     val dressCode: String? = null,
     val description: String? = null,
-    val businessStartTime: String? = null,
-    val businessEndTime: String? = null,
+    val startTime: String? = null,
+    val endTime: String? = null,
     val userId: String? = null,
     val images: List<String>? = null
 )

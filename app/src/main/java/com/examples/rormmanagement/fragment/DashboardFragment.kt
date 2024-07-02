@@ -8,12 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.examples.rormmanagement.MenuActivity
 import com.examples.rormmanagement.ProfileActivity
 import com.examples.rormmanagement.PromotionActivity
 import com.examples.rormmanagement.ReviewActivity
+import com.examples.rormmanagement.RewardsActivity
 import com.examples.rormmanagement.databinding.FragmentDashboardBinding
+import com.examples.rormmanagement.model.Promotion
 import com.examples.rormmanagement.model.Restaurant
+import com.examples.rormmanagement.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -23,6 +27,7 @@ class DashboardFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var restaurantRef: DatabaseReference
+    private lateinit var userRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,7 @@ class DashboardFragment : Fragment() {
         database = FirebaseDatabase.getInstance()
         val userId = auth.currentUser?.uid ?: return
         restaurantRef = database.getReference("restaurants")
+        userRef = database.getReference("users").child(userId)
     }
 
     override fun onCreateView(
@@ -43,6 +49,7 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadRestaurantData()
+        loadUserData()
 
         val menuClickListener = View.OnClickListener {
             val intent = Intent(requireContext(), MenuActivity::class.java)
@@ -79,6 +86,15 @@ class DashboardFragment : Fragment() {
         binding.promotionsLayout.setOnClickListener(promotionClickListener)
         binding.promotionsIcon.setOnClickListener(promotionClickListener)
         binding.promotionsText.setOnClickListener(promotionClickListener)
+
+        val rewardsClickListener = View.OnClickListener {
+            val intent = Intent(requireContext(), RewardsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.rewardsLayout.setOnClickListener(rewardsClickListener)
+        binding.rewardsIcon.setOnClickListener(rewardsClickListener)
+        binding.rewardsText.setOnClickListener(rewardsClickListener)
     }
 
     private fun loadRestaurantData() {
@@ -90,7 +106,7 @@ class DashboardFragment : Fragment() {
                         val restaurant = restaurantSnapshot.getValue(Restaurant::class.java)
                         Log.d("DashboardFragment", "Restaurant snapshot: ${restaurantSnapshot.value}")
                         if (restaurant != null) {
-                            binding.restaurantNameText.text = restaurant.name
+                            binding.ownerNameText.text = restaurant.name
                             Log.d("DashboardFragment", "Restaurant Name: ${restaurant.name}")
                             break
                         } else {
@@ -104,6 +120,33 @@ class DashboardFragment : Fragment() {
 
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(requireContext(), "Failed to load restaurant data.", Toast.LENGTH_SHORT).show()
+                Log.e("DashboardFragment", "DatabaseError: ${error.message}")
+            }
+        })
+    }
+
+    private fun loadUserData() {
+        userRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val user = snapshot.getValue(User::class.java)
+                    if (user != null) {
+                        binding.ownerNameText.text = user.name
+                        if (!user.profileImageUrl.isNullOrEmpty()) {
+                            Glide.with(this@DashboardFragment)
+                                .load(user.profileImageUrl)
+                                .into(binding.ownerImage)
+                        }
+                    } else {
+                        Log.e("DashboardFragment", "User data is null")
+                    }
+                } else {
+                    Log.e("DashboardFragment", "User snapshot does not exist")
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Failed to load user data.", Toast.LENGTH_SHORT).show()
                 Log.e("DashboardFragment", "DatabaseError: ${error.message}")
             }
         })

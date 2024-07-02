@@ -167,10 +167,10 @@ class RegisterRestaurantProfileActivity : AppCompatActivity() {
                     binding.parking.setSelection(getIndex(binding.parking, it.parking))
                     binding.dressCode.setSelection(getIndex(binding.dressCode, it.dressCode))
                     binding.description.setText(it.description)
-                    binding.startTime.setText(it.businessStartTime)
-                    binding.endTime.setText(it.businessEndTime)
-                    startTime = parseTime(it.businessStartTime)
-                    endTime = parseTime(it.businessEndTime)
+                    binding.startTime.setText(it.startTime)
+                    binding.endTime.setText(it.endTime)
+                    startTime = parseTime(it.startTime)
+                    endTime = parseTime(it.endTime)
                 }
             }
             .addOnFailureListener { exception ->

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".AddPromotionItemActivity">
+    tools:context=".AddRewardsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/addItemAppBarLayout"
@@ -79,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/promotionDiscountPercentage"
+                android:id="@+id/promotionPoints"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
@@ -88,7 +88,7 @@
                 android:background="@drawable/white_button"
                 android:ems="10"
                 android:fontFamily="@font/roboto"
-                android:hint="Enter Discount Percentage"
+                android:hint="Enter Voucher Points"
                 android:inputType="number"
                 android:paddingStart="20dp"
                 android:paddingEnd="40dp"
@@ -115,7 +115,7 @@
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/promotionDiscountPercentage" />
+                app:layout_constraintTop_toBottomOf="@+id/promotionPoints" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewImage"

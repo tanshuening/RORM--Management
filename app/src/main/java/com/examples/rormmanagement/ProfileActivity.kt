@@ -1,25 +1,31 @@
 package com.examples.rormmanagement
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
 import com.examples.rormmanagement.databinding.ActivityProfileBinding
 import com.examples.rormmanagement.fragment.DashboardFragment
 import com.examples.rormmanagement.model.Restaurant
 import com.examples.rormmanagement.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
+    private lateinit var storage: FirebaseStorage
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,31 +34,71 @@ class ProfileActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
+        storage = FirebaseStorage.getInstance()
 
-        setupLocationSpinner()
         fetchUserData()
         fetchRestaurantData()
+
+        val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            if (uri != null) {
+                binding.ownerImage.setImageURI(uri)
+                imageUri = uri
+            }
+        }
 
         binding.backButton.setOnClickListener {
             switchToFragment(DashboardFragment())
         }
 
-        binding.restaurantDetailsLayout.setOnClickListener {
-            val intent = Intent(this, RestaurantProfileActivity::class.java)
-            startActivity(intent)
+        binding.cardViewImage.setOnClickListener {
+            pickImage.launch("image/*")
         }
 
         binding.saveButton.setOnClickListener {
             updateUserDetails()
             updateRestaurantDetails()
+            if (imageUri != null) {
+                uploadImage(imageUri!!)
+            } else {
+                Toast.makeText(this, "Please select an image.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.restaurantDetailsLayout.setOnClickListener {
+            startActivity(Intent(this, RestaurantProfileActivity::class.java))
+        }
+
+        binding.restaurantDetails.setOnClickListener {
+            startActivity(Intent(this, RestaurantProfileActivity::class.java))
         }
     }
 
-    private fun setupLocationSpinner() {
-        val locationOptions = resources.getStringArray(R.array.malaysia_states)
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, locationOptions)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.listOfLocation.setAdapter(adapter)
+    private fun uploadImage(imageUri: Uri) {
+        val userId = auth.currentUser?.uid ?: return
+        val storageRef: StorageReference = storage.reference.child("profile_images/$userId.jpg")
+        val uploadTask = storageRef.putFile(imageUri)
+
+        uploadTask.addOnSuccessListener {
+            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                saveProfileImageUrl(uri.toString())
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Image upload failed.", Toast.LENGTH_SHORT).show()
+            Log.e("ProfileActivity", "Image upload failed", it)
+        }
+    }
+
+    private fun saveProfileImageUrl(url: String) {
+        val userId = auth.currentUser?.uid ?: return
+        val updates = mapOf("profileImageUrl" to url)
+        database.child("users").child(userId).updateChildren(updates)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Profile image updated successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Failed to update profile image", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     private fun fetchUserData() {
@@ -62,8 +108,11 @@ class ProfileActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val user = dataSnapshot.getValue(User::class.java)
                 if (user != null) {
-                    binding.ownerName.text = user.name
+                    binding.ownerName.setText(user.name)
                     binding.ownerEmail.setText(user.email)
+                    user.profileImageUrl?.let {
+                        Glide.with(this@ProfileActivity).load(it).into(binding.ownerImage)
+                    }
                 } else {
                     Log.e("ProfileActivity", "User data is null")
                 }
@@ -84,17 +133,6 @@ class ProfileActivity : AppCompatActivity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val restaurant = dataSnapshot.children.firstOrNull()?.getValue(Restaurant::class.java)
                     if (restaurant != null) {
-                        val locationArray = resources.getStringArray(R.array.malaysia_states)
-                        val locationPosition = locationArray.indexOf(restaurant.location)
-
-                        // Ensure locationPosition is within bounds
-                        if (locationPosition >= 0 && locationPosition < locationArray.size) {
-                            binding.listOfLocation.setText(locationArray[locationPosition], false)
-                        } else {
-                            Log.e("ProfileActivity", "Invalid location position: $locationPosition")
-                        }
-
-                        binding.restaurantName.setText(restaurant.name)
                         binding.ownerPhone.setText(restaurant.phone)
                     } else {
                         Log.e("ProfileActivity", "Restaurant data is null")
@@ -108,11 +146,10 @@ class ProfileActivity : AppCompatActivity() {
             })
     }
 
-
     private fun updateUserDetails() {
         val userId = auth.currentUser?.uid ?: return
         val userUpdates = mapOf(
-            "ownerName" to binding.ownerName.text.toString(),
+            "name" to binding.ownerName.text.toString(),
             "email" to binding.ownerEmail.text.toString()
         )
 
@@ -121,45 +158,41 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, "User details updated successfully", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Failed to update user details", Toast.LENGTH_SHORT).show()
-                task.exception?.let { Log.e("ProfileActivity", "Failed to update user details", it) }
             }
         }
     }
 
     private fun updateRestaurantDetails() {
         val userId = auth.currentUser?.uid ?: return
+        val restaurantUpdates = mapOf(
+            "phone" to binding.ownerPhone.text.toString()
+        )
+
         database.child("restaurants").orderByChild("userId").equalTo(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val restaurantId = dataSnapshot.children.firstOrNull()?.key ?: return
-                    val restaurantUpdates = mapOf(
-                        "location" to binding.listOfLocation.text.toString(),
-                        "name" to binding.restaurantName.text.toString(),
-                        "phone" to binding.ownerPhone.text.toString()
-                    )
-
-                    database.child("restaurants").child(restaurantId).updateChildren(restaurantUpdates).addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            Toast.makeText(this@ProfileActivity, "Restaurant details updated successfully", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(this@ProfileActivity, "Failed to update restaurant details", Toast.LENGTH_SHORT).show()
-                            task.exception?.let { Log.e("ProfileActivity", "Failed to update restaurant details", it) }
+                    database.child("restaurants").child(restaurantId).updateChildren(restaurantUpdates)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(this@ProfileActivity, "Restaurant details updated successfully", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(this@ProfileActivity, "Failed to update restaurant details", Toast.LENGTH_SHORT).show()
+                            }
                         }
-                    }
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    Toast.makeText(this@ProfileActivity, "Failed to load restaurant data", Toast.LENGTH_SHORT).show()
-                    Log.e("ProfileActivity", "Failed to load restaurant data", databaseError.toException())
+                    Toast.makeText(this@ProfileActivity, "Failed to update restaurant details", Toast.LENGTH_SHORT).show()
+                    Log.e("ProfileActivity", "Failed to update restaurant details", databaseError.toException())
                 }
             })
     }
 
     private fun switchToFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.dashboardFragment, fragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            .addToBackStack(null)
-            .commit()
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.dashboardFragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

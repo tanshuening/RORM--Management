@@ -21,14 +21,18 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
             android:elevation="5dp"
-            app:cardCornerRadius="50dp" >
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="130dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/profilePicture"
+                android:id="@+id/ownerImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
@@ -36,11 +40,12 @@
 
         </androidx.cardview.widget.CardView>
 
+
         <TextView
-            android:id="@+id/restaurantNameText"
+            android:id="@+id/ownerNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Restaurant Name"
+            android:text="Owner Name"
             android:textSize="20sp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/roboto"/>
@@ -130,7 +135,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
-        android:gravity="top"
+        android:gravity="center"
         android:baselineAligned="false">
 
         <LinearLayout
@@ -165,7 +170,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/informationLayout"
+            android:id="@+id/rewardsLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -177,22 +182,68 @@
             android:background="@drawable/white_button" >
 
             <ImageButton
+                android:id="@+id/rewardsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="Rewards"
+                android:src="@drawable/voucher"
+                android:backgroundTint="@color/white"/>
+
+            <TextView
+                android:id="@+id/rewardsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Rewards"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 3rd row features -->
+    <LinearLayout
+        android:id="@+id/thirdRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="top"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@+id/informationLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_button"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <ImageButton
                 android:id="@+id/informationIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
                 android:contentDescription="Restaurant Information"
-                android:src="@drawable/information"
-                android:backgroundTint="@color/white"/>
+                android:src="@drawable/information" />
 
             <TextView
                 android:id="@+id/informationText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Restaurant Information"
+                android:fontFamily="@font/roboto"
                 android:gravity="center"
-                android:textSize="14sp"
-                android:fontFamily="@font/roboto"/>
+                android:text="Restaurant Information"
+                android:textSize="14sp" />
         </LinearLayout>
+
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

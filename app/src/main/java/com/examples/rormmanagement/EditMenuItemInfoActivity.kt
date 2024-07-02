@@ -78,7 +78,7 @@ class EditMenuItemInfoActivity : AppCompatActivity() {
             "foodName" to binding.foodName.text.toString(),
             "foodPrice" to binding.foodPrice.text.toString(),
             "foodDescription" to binding.foodDescription.text.toString(),
-            "foodIngredients" to binding.foodIngredients.text.toString(),
+            "foodIngredients" to binding.foodIngredients.text.toString(), // Ensure ingredients are saved with \n for new lines
             "foodImage" to initialImageUri
         )
 

@@ -69,12 +69,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/pending"
-                    app:layout_constraintEnd_toEndOf="@+id/pending"
-                    app:layout_constraintStart_toStartOf="@+id/pending"
+                    app:layout_constraintEnd_toEndOf="@+id/upcomingText"
+                    app:layout_constraintStart_toStartOf="@+id/upcomingText"
                     app:layout_constraintTop_toTopOf="@+id/guideline" />
 
                 <TextView
-                    android:id="@+id/pending"
+                    android:id="@+id/upcomingText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
@@ -86,28 +86,29 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
                 <TextView
+                    android:id="@+id/upcoming"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:text="10"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                    app:layout_constraintEnd_toEndOf="@+id/pending"
-                    app:layout_constraintStart_toStartOf="@+id/pending"
-                    app:layout_constraintTop_toBottomOf="@+id/pending" />
+                    app:layout_constraintEnd_toEndOf="@+id/upcomingText"
+                    app:layout_constraintStart_toStartOf="@+id/upcomingText"
+                    app:layout_constraintTop_toBottomOf="@+id/upcomingText" />
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/complete"
-                    app:layout_constraintEnd_toEndOf="@+id/complete"
-                    app:layout_constraintStart_toStartOf="@+id/complete"
+                    app:layout_constraintEnd_toEndOf="@+id/pastText"
+                    app:layout_constraintStart_toStartOf="@+id/pastText"
                     app:layout_constraintTop_toTopOf="@+id/guideline" />
 
                 <TextView
-                    android:id="@+id/complete"
+                    android:id="@+id/pastText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -119,15 +120,16 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
                 <TextView
+                    android:id="@+id/past"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:text="5"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/complete"
-                    app:layout_constraintStart_toStartOf="@+id/complete"
-                    app:layout_constraintTop_toBottomOf="@+id/complete" />
+                    app:layout_constraintEnd_toEndOf="@+id/pastText"
+                    app:layout_constraintStart_toStartOf="@+id/pastText"
+                    app:layout_constraintTop_toBottomOf="@+id/pastText" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

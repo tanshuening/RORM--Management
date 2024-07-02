@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.examples.rormmanagement.databinding.ActivityEditPromotionInfoBinding
+import com.examples.rormmanagement.databinding.ActivityEditRewardsBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -19,12 +19,12 @@ import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
 
-class EditPromotionInfoActivity : AppCompatActivity() {
+class EditRewardsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityEditPromotionInfoBinding
+    private lateinit var binding: ActivityEditRewardsBinding
     private lateinit var database: FirebaseDatabase
-    private lateinit var promotionItemRef: DatabaseReference
-    private var promotionItemId: String? = null
+    private lateinit var rewardsItemRef: DatabaseReference
+    private var rewardsItemId: String? = null
     private var restaurantId: String? = null
     private var image: Uri? = null
     private lateinit var initialImageUri: String
@@ -38,20 +38,20 @@ class EditPromotionInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEditPromotionInfoBinding.inflate(layoutInflater)
+        binding = ActivityEditRewardsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         database = FirebaseDatabase.getInstance()
-        promotionItemId = intent.getStringExtra(PROMOTION_ITEM_ID)
+        rewardsItemId = intent.getStringExtra(REWARDS_ITEM_ID)
         restaurantId = intent.getStringExtra(RESTAURANT_ID)
 
-        if (promotionItemId != null && restaurantId != null) {
-            promotionItemRef = database.getReference("restaurants")
+        if (rewardsItemId != null && restaurantId != null) {
+            rewardsItemRef = database.getReference("restaurants")
                 .child(restaurantId!!)
-                .child("promotion")
-                .child(promotionItemId!!)
+                .child("rewards")
+                .child(rewardsItemId!!)
         } else {
-            Toast.makeText(this, "PromotionItemId or restaurantId is null", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "rewardsItemId or restaurantId is null", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -59,7 +59,7 @@ class EditPromotionInfoActivity : AppCompatActivity() {
         val promotionName = intent.getStringExtra("promotionName")
         val promotionDescription = intent.getStringExtra("promotionDescription")
         val promotionTnc = intent.getStringExtra("promotionTnc")
-        val promotionDiscount = intent.getStringExtra("promotionDiscount")
+        val promotionPoints = intent.getStringExtra("promotionPoints")
         val promotionStartDate = intent.getStringExtra("promotionStartDate")
         val promotionEndDate = intent.getStringExtra("promotionEndDate")
         initialImageUri = intent.getStringExtra("image") ?: ""
@@ -67,7 +67,7 @@ class EditPromotionInfoActivity : AppCompatActivity() {
         binding.promotionName.setText(promotionName)
         binding.promotionDescription.setText(promotionDescription)
         binding.promotionTnc.setText(promotionTnc)
-        binding.promotionDiscountPercentage.setText(promotionDiscount)
+        binding.promotionPoints.setText(promotionPoints)
         binding.startDate.setText(promotionStartDate)
         binding.endDate.setText(promotionEndDate)
 
@@ -113,7 +113,7 @@ class EditPromotionInfoActivity : AppCompatActivity() {
     }
 
     private fun validateInputs(): Boolean {
-        val discount = binding.promotionDiscountPercentage.text.toString().toDoubleOrNull()
+        val points = binding.promotionPoints.text.toString().toDoubleOrNull()
 
         if (!isEndDateValid()) {
             Toast.makeText(this, "End date cannot be earlier than start date", Toast.LENGTH_SHORT)
@@ -121,8 +121,8 @@ class EditPromotionInfoActivity : AppCompatActivity() {
             return false
         }
 
-        if (discount == null || discount < 0 || discount > 100) {
-            Toast.makeText(this, "Please enter a valid discount between 0 and 100", Toast.LENGTH_SHORT).show()
+        if (points == null || points < 0) {
+            Toast.makeText(this, "Please enter valid points", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -146,18 +146,18 @@ class EditPromotionInfoActivity : AppCompatActivity() {
 
     private fun saveData() {
         val updatedData = mutableMapOf(
-            "promotionName" to binding.promotionName.text.toString(),
-            "promotionDescription" to binding.promotionDescription.text.toString(),
-            "promotionTnc" to binding.promotionTnc.text.toString(),
-            "promotionDiscount" to binding.promotionDiscountPercentage.text.toString(),
-            "promotionStartDate" to binding.startDate.text.toString(),
-            "promotionEndDate" to binding.endDate.text.toString(),
+            "name" to binding.promotionName.text.toString(),
+            "description" to binding.promotionDescription.text.toString(),
+            "termsAndConditions" to binding.promotionTnc.text.toString(),
+            "points" to binding.promotionPoints.text.toString(),
+            "startDate" to binding.startDate.text.toString(),
+            "endDate" to binding.endDate.text.toString(),
             "image" to initialImageUri
         )
 
         if (image != null) {
             val storageRef = FirebaseStorage.getInstance().reference
-            val imageRef = storageRef.child("promotion_images/$promotionItemId.jpg")
+            val imageRef = storageRef.child("rewards_images/$rewardsItemId.jpg")
             val uploadTask = imageRef.putFile(image!!)
 
             uploadTask.addOnSuccessListener {
@@ -176,28 +176,28 @@ class EditPromotionInfoActivity : AppCompatActivity() {
     }
 
     private fun updateDatabase(updatedData: Map<String, Any>) {
-        promotionItemRef.updateChildren(updatedData)
+        rewardsItemRef.updateChildren(updatedData)
             .addOnSuccessListener {
                 val updatedIntent = Intent().apply {
-                    putExtra(PROMOTION_ITEM_ID, promotionItemId)
-                    putExtra("promotionName", updatedData["promotionName"].toString())
-                    putExtra("promotionDescription", updatedData["promotionDescription"].toString())
-                    putExtra("promotionTnc", updatedData["promotionTnc"].toString())
-                    putExtra("promotionDiscount", updatedData["promotionDiscount"].toString())
-                    putExtra("promotionStartDate", updatedData["promotionStartDate"].toString())
-                    putExtra("promotionEndDate", updatedData["promotionEndDate"].toString())
+                    putExtra(REWARDS_ITEM_ID, rewardsItemId)
+                    putExtra("promotionName", updatedData["name"].toString())
+                    putExtra("promotionDescription", updatedData["description"].toString())
+                    putExtra("promotionTnc", updatedData["termsAndConditions"].toString())
+                    putExtra("promotionPoints", updatedData["points"].toString())
+                    putExtra("promotionStartDate", updatedData["startDate"].toString())
+                    putExtra("promotionEndDate", updatedData["endDate"].toString())
                     putExtra("image", updatedData["image"].toString())
                 }
                 setResult(Activity.RESULT_OK, updatedIntent)
                 finish()
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to update promotion: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to update reward: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
     companion object {
-        const val PROMOTION_ITEM_ID = "promotionItemId"
+        const val REWARDS_ITEM_ID = "rewardsItemId"
         const val RESTAURANT_ID = "restaurantId"
     }
 }

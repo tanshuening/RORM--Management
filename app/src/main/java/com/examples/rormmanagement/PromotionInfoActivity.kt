@@ -5,19 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.examples.rormmanagement.MenuItemInfoActivity.Companion.EDIT_MENU_ITEM_REQUEST_CODE
 import com.examples.rormmanagement.databinding.ActivityPromotionInfoBinding
-import com.examples.rormmanagement.model.Menu
 import com.examples.rormmanagement.model.Promotion
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 class PromotionInfoActivity : AppCompatActivity() {
 
@@ -25,6 +18,7 @@ class PromotionInfoActivity : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var promotionItemRef: DatabaseReference
     private var promotionItemId: String? = null
+    private var restaurantId: String? = null
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +29,14 @@ class PromotionInfoActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        promotionItemId = intent.getStringExtra("promotionItemId")
-        val restaurantId = intent.getStringExtra("restaurantId")
+        promotionItemId = intent.getStringExtra(PROMOTION_ITEM_ID)
+        restaurantId = intent.getStringExtra(RESTAURANT_ID)
 
         if (promotionItemId != null && restaurantId != null) {
-            promotionItemRef = database.getReference("restaurants").child(restaurantId).child("menu").child(promotionItemId!!)
+            promotionItemRef = database.getReference("restaurants")
+                .child(restaurantId!!)
+                .child("promotion")
+                .child(promotionItemId!!)
             retrieveAndDisplayPromotionItem()
         } else {
             Log.e("PromotionInfoActivity", "PromotionItemId or restaurantId is null")
@@ -52,8 +49,8 @@ class PromotionInfoActivity : AppCompatActivity() {
 
         binding.editButton.setOnClickListener {
             val intent = Intent(this, EditPromotionInfoActivity::class.java).apply {
-                putExtra("promotionItemId", promotionItemId)
-                putExtra("restaurantId", restaurantId)
+                putExtra(PROMOTION_ITEM_ID, promotionItemId)
+                putExtra(RESTAURANT_ID, restaurantId)
                 putExtra("promotionName", binding.promotionNameTextView.text.toString())
                 putExtra("promotionDescription", binding.promotionDescriptionTextView.text.toString())
                 putExtra("promotionTnc", binding.promotionTncTextView.text.toString())
@@ -103,13 +100,15 @@ class PromotionInfoActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == EDIT_MENU_ITEM_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == EDIT_PROMOTION_ITEM_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             retrieveAndDisplayPromotionItem()
             setResult(Activity.RESULT_OK)
         }
     }
 
     companion object {
+        const val PROMOTION_ITEM_ID = "promotionItemId"
+        const val RESTAURANT_ID = "restaurantId"
         const val EDIT_PROMOTION_ITEM_REQUEST_CODE = 1
     }
 }

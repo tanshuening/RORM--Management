@@ -17,11 +17,32 @@
         android:theme="@style/Theme.RORMManagement"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".EditRewardsActivity"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
-            android:exported="true" >
+            android:name=".RewardsInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddRewardsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RewardsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PromotionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PromotionFragment"
+            android:exported="false" />
+        <activity
+            android:name=".AddVoucherActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VouchersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,13 +50,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditPromotionInfoActivity"
             android:exported="false" />
         <activity
             android:name=".SignActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".EditMenuItemInfoActivity"
             android:exported="false" />
@@ -62,7 +84,7 @@
             android:name=".RestaurantProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".PromotionActivity"
+            android:name=".VoucherActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
