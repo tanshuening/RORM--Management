@@ -89,17 +89,18 @@ class RewardsInfoActivity : AppCompatActivity() {
 
     private fun displayRewardsItem(rewardsItem: Rewards) {
         with(binding) {
-            promotionNameTextView.setText(rewardsItem.name)
-            promotionDescriptionTextView.setText(rewardsItem.description)
-            promotionPointsTextView.setText(rewardsItem.points)
-            promotionTncTextView.setText(rewardsItem.termsAndConditions)
-            promotionStartDateTextView.setText(rewardsItem.startDate)
-            promotionEndDateTextView.setText(rewardsItem.endDate)
+            promotionNameTextView.text = rewardsItem.name
+            promotionDescriptionTextView.text = rewardsItem.description
+            promotionPointsTextView.text = rewardsItem.points.toString() // Convert Int to String
+            promotionTncTextView.text = rewardsItem.termsAndConditions
+            promotionStartDateTextView.text = rewardsItem.startDate
+            promotionEndDateTextView.text = rewardsItem.endDate
             imageUrl = rewardsItem.image
             Glide.with(this@RewardsInfoActivity).load(Uri.parse(imageUrl))
                 .into(promotionImageView)
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

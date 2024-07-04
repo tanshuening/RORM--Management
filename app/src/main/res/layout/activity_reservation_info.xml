@@ -170,9 +170,13 @@
                     android:fontFamily="@font/roboto_medium" />
 
                 <TextView
+                    android:id="@+id/occasion"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:paddingStart="6dp"
                     android:background="@drawable/white_button"/>
             </LinearLayout>
 
@@ -213,9 +217,10 @@
                         android:layout_height="match_parent"
                         android:layout_weight="8"
                         android:inputType="number"
+                        android:gravity="center_vertical"
                         android:background="@android:color/transparent"
                         android:padding="6dp"
-                        android:textSize="16dp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
 
             </LinearLayout>

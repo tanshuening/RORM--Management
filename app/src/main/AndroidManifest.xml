@@ -31,15 +31,7 @@
         <activity
             android:name=".PromotionActivity"
             android:exported="false" />
-        <activity
-            android:name=".PromotionFragment"
-            android:exported="false" />
-        <activity
-            android:name=".AddVoucherActivity"
-            android:exported="false" />
-        <activity
-            android:name=".VouchersActivity"
-            android:exported="false" />
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -84,7 +76,7 @@
             android:name=".RestaurantProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".VoucherActivity"
+            android:name=".ReservationInfoActivity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"

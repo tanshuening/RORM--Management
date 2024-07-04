@@ -104,35 +104,34 @@ class RewardsActivity : AppCompatActivity(), RewardsAdapter.OnItemClickListener 
         val userId = auth.currentUser?.uid ?: return
 
         database = FirebaseDatabase.getInstance()
-        val restaurantsQuery =
-            database.reference.child("restaurants").orderByChild("userId").equalTo(userId)
+        val restaurantsQuery = database.reference.child("restaurants").orderByChild("userId").equalTo(userId)
 
         restaurantsQuery.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 rewardsItems.clear()
                 for (restaurantSnapshot in snapshot.children) {
                     val restaurantId = restaurantSnapshot.key ?: continue
-                    val rewardsRef: DatabaseReference =
-                        database.reference.child("restaurants").child(restaurantId).child("rewards")
+                    val rewardsRef: DatabaseReference = database.reference.child("restaurants").child(restaurantId).child("rewards")
 
                     rewardsRef.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(rewardsSnapshot: DataSnapshot) {
                             for (rewardsItemSnapshot in rewardsSnapshot.children) {
-                                val rewardsItem = rewardsItemSnapshot.getValue(Rewards::class.java)
-                                rewardsItem?.let {
-                                    if (!rewardsItems.contains(it)) { // Ensure no duplicates
-                                        rewardsItems.add(it)
+                                try {
+                                    val rewardsItem = rewardsItemSnapshot.getValue(Rewards::class.java)
+                                    rewardsItem?.let {
+                                        if (!rewardsItems.contains(it)) { // Ensure no duplicates
+                                            rewardsItems.add(it)
+                                        }
                                     }
+                                } catch (e: DatabaseException) {
+                                    Log.e("DatabaseError", "Failed to convert reward: ${e.message}")
                                 }
                             }
                             adapter.notifyDataSetChanged()
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            Log.d(
-                                "DatabaseError",
-                                "Failed to retrieve reward items: ${error.message}"
-                            )
+                            Log.d("DatabaseError", "Failed to retrieve reward items: ${error.message}")
                         }
                     })
                 }
@@ -143,6 +142,7 @@ class RewardsActivity : AppCompatActivity(), RewardsAdapter.OnItemClickListener 
             }
         })
     }
+
 
     private fun deleteSelectedItems(selectedItems: List<Rewards>) {
         val userId = auth.currentUser?.uid ?: return

@@ -1,9 +1,11 @@
 package com.examples.rormmanagement.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.examples.rormmanagement.ReservationInfoActivity
 import com.examples.rormmanagement.databinding.CardViewReservationBinding
 import com.examples.rormmanagement.model.Reservation
 import com.examples.rormmanagement.model.User
@@ -41,6 +43,22 @@ class ReservationAdapter(private val reservations: List<Reservation>) :
                 holder.binding.customerName.text = "Unknown"
             }
         })
+
+        // Set click listener
+        holder.binding.root.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, ReservationInfoActivity::class.java).apply {
+                putExtra("reservationId", reservation.reservationId)
+                putExtra("userId", reservation.userId)
+                putExtra("numOfPax", reservation.numOfPax)
+                putExtra("date", reservation.date)
+                putExtra("timeSlot", reservation.timeSlot)
+                putExtra("specialRequest", reservation.specialRequest)
+                putExtra("occasion", reservation.bookingOccasion)
+                putExtra("phone", reservation.bookingPhone)
+            }
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = reservations.size

@@ -109,7 +109,7 @@ class AddRewardsActivity : AppCompatActivity() {
             return false
         }
 
-/*        if (discount == null || discount < 0 || discount > 100) {
+        /*        if (discount == null || discount < 0 || discount > 100) {
             Toast.makeText(
                 this,
                 "Please enter a valid discount between 0 and 100",
@@ -137,7 +137,6 @@ class AddRewardsActivity : AppCompatActivity() {
     }
 
     private fun uploadData() {
-
         val userId = auth.currentUser?.uid ?: return
         val restaurantsRef =
             database.getReference("restaurants").orderByChild("userId").equalTo(userId)
@@ -167,7 +166,7 @@ class AddRewardsActivity : AppCompatActivity() {
                                     name = promotionName,
                                     description = promotionDescription,
                                     termsAndConditions = promotionTerms,
-                                    points = promotionPoints,
+                                    points = rewardsPointsInt,
                                     startDate = promotionStartDate,
                                     endDate = promotionEndDate,
                                     image = downloadUri.toString(),
